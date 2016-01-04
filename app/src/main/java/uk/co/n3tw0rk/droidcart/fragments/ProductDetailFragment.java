@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,32 +18,27 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 import uk.co.n3tw0rk.droidcart.R;
-import uk.co.n3tw0rk.droidcart.activities.ProductActivity;
-import uk.co.n3tw0rk.droidcart.activities.ShopFrontActivity;
 import uk.co.n3tw0rk.droidcart.api.ProductAPI;
 import uk.co.n3tw0rk.droidcart.caches.ProductCache;
 import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
 
 /**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ShopFrontActivity}
- * in two-pane mode (on tablets) or a {@link ProductActivity}
- * on handsets.
+ * Product Detail Fragment Class
+ *
+ * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
+ * @version 0.0.1
  */
-public class ProductDetailFragment extends DroidCartFragment implements Callback<Product> {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
+public class ProductDetailFragment extends DroidCartFragment
+        implements Callback<Product> {
+
+    /** */
     public static final String PRODUCT_ID = "__PRODUCT_ID";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
+    /** */
     protected Product product;
 
     /** */
-    protected int produtId;
+    protected int productId;
 
     /** */
     protected String[] attributes = {
@@ -53,8 +47,7 @@ public class ProductDetailFragment extends DroidCartFragment implements Callback
     };
 
     /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
+     *
      */
     public ProductDetailFragment() {
         super();
@@ -69,7 +62,7 @@ public class ProductDetailFragment extends DroidCartFragment implements Callback
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(PRODUCT_ID)) {
-            produtId = getArguments().getInt(PRODUCT_ID);
+            productId = getArguments().getInt(PRODUCT_ID);
             getProduct();
         }
     }
@@ -78,10 +71,9 @@ public class ProductDetailFragment extends DroidCartFragment implements Callback
      *
      */
     public void getProduct() {
-        Log.e("getProduct", "productId:"+produtId);
         ProductAPI service = getRetrofit()
                 .create(ProductAPI.class);
-        Call<Product> call = service.getProduct(produtId,attributes);
+        Call<Product> call = service.getProduct(productId,attributes);
         call.enqueue(this);
     }
 
@@ -94,7 +86,7 @@ public class ProductDetailFragment extends DroidCartFragment implements Callback
     public void onResponse(Response<Product> response, Retrofit retrofit) {
         if (null == product) {
             product = response.body();
-            ProductCache.instance().set(produtId,product);
+            ProductCache.instance().set(productId,product);
         }
 
         render();
@@ -116,8 +108,9 @@ public class ProductDetailFragment extends DroidCartFragment implements Callback
 
             TextView price = (TextView) rootView.findViewById(R.id.details_price);
             price.setText(product.price);
-        }
 
+            setActionBarTitle(product.name);
+        }
     }
 
     /**

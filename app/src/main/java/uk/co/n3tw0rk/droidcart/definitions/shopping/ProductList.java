@@ -5,11 +5,15 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by M00SEMARKTWO on 22/12/2015.
+ * Product List Definition Class
+ *
+ * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
+ * @version 0.0.1
  */
 abstract public class ProductList implements Iterable<Product> {
 
-    final public Map<Integer,Product> products = new ConcurrentHashMap<Integer,Product>();
+    /** */
+    public Map<Integer,Product> products = new ConcurrentHashMap<Integer,Product>();
 
     /**
      *

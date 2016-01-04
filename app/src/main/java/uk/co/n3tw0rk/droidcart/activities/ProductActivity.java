@@ -11,7 +11,6 @@ import uk.co.n3tw0rk.droidcart.R;
 import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
 import uk.co.n3tw0rk.droidcart.fragments.ProductDetailFragment;
 
-
 /**
  * Product Activity Class
  *
@@ -36,6 +35,10 @@ public class ProductActivity extends DroidCartActivity {
         super();
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,7 @@ public class ProductActivity extends DroidCartActivity {
                     .add(R.id.item_detail_container, fragment)
                     .commit();
 
-            getSupportActionBar().setTitle(R.string.loading);
+            setActionBarTitle(R.string.loading);
         }
     }
 

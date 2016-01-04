@@ -2,7 +2,6 @@ package uk.co.n3tw0rk.droidcart.listeners;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 
 /**
  * Created by M00SEMARKTWO on 31/12/2015.
@@ -15,14 +14,19 @@ public abstract class StaggeredLoaderListener extends RecyclerView.OnScrollListe
     /** */
     protected final StaggeredGridLayoutManager layoutManager;
 
+    /** */
     protected int triggerLoad = 0;
 
+    /** */
     protected int loaded = 0;
 
+    /** */
     protected final int reload;
 
+    /** */
     protected boolean triggered = true;
 
+    /** */
     protected final int[] columns;
 
     /**
@@ -60,9 +64,8 @@ public abstract class StaggeredLoaderListener extends RecyclerView.OnScrollListe
         for (int i : columns) {
             if (0 < i && i >= loaded-reload) {
                 triggered = true;
-                Log.e("onScrolled","i:"+i+" - loaded"+loaded+" - reload:"+reload);
                 this.onLoadMore(loaded);
-                // Break out here or it will get caused per x columns
+                // Break out here or it will get called for each column that matches
                 return;
             }
         }
