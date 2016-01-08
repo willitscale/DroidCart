@@ -100,7 +100,8 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:text="Add to Cart"
-                android:drawableLeft="@drawable/ic_ab_cart_light" />
+                android:drawableLeft="@drawable/ic_ab_cart_light"
+                android:clickable="true"  />
 
             <TextView
                 android:id="@+id/add_to_wish_list"
@@ -116,7 +117,8 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:text="Add to Wish List"
-                android:drawableLeft="@drawable/ic_star_light" />
+                android:drawableLeft="@drawable/ic_star_light"
+                android:clickable="true" />
 
         </RelativeLayout>
 

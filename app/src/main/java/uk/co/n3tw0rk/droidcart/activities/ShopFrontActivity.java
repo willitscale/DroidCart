@@ -179,7 +179,7 @@ public class ShopFrontActivity extends DroidCartActivity
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        Shop shop = ShopCache.instance().get(shopId);
+        Shop shop = ShopCache.instance().get();
 
         for (Category category : shop.categories) {
             Fragment fragment = CategoryProductsFragment.instance(category.id);

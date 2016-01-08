@@ -8,7 +8,7 @@ import uk.co.n3tw0rk.droidcart.definitions.product.Category;
  * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
  * @version 0.0.1
  */
-public class CategoryCache extends Cache<Category> {
+public class CategoryCache extends MultiCache<Category> {
 
     /** */
     private static final CategoryCache instance = new CategoryCache();

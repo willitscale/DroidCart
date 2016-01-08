@@ -73,7 +73,7 @@ public class SplashActivity extends DroidCartActivity implements Callback<Shop> 
      */
     @Override
     public void onResponse(Response<Shop> response, Retrofit retrofit) {
-        ShopCache.instance().set(shopId,response.body());
+        ShopCache.instance().set(response.body());
         loaded();
     }
 

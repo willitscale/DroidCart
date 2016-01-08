@@ -6,5 +6,5 @@ package uk.co.n3tw0rk.droidcart.activities;
  * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
  * @version 0.0.1
  */
-public class CartActivity extends DroidCartActivity {
+public class BasketActivity extends DroidCartActivity {
 }

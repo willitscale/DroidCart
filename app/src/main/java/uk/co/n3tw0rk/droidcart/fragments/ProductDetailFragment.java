@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,7 +20,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 import uk.co.n3tw0rk.droidcart.R;
 import uk.co.n3tw0rk.droidcart.api.ProductAPI;
+import uk.co.n3tw0rk.droidcart.caches.BasketCache;
 import uk.co.n3tw0rk.droidcart.caches.ProductCache;
+import uk.co.n3tw0rk.droidcart.caches.WishListCache;
 import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
 
 /**
@@ -29,7 +32,7 @@ import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
  * @version 0.0.1
  */
 public class ProductDetailFragment extends DroidCartFragment
-        implements Callback<Product> {
+        implements Callback<Product>, View.OnClickListener {
 
     /** */
     public static final String PRODUCT_ID = "__PRODUCT_ID";
@@ -109,8 +112,38 @@ public class ProductDetailFragment extends DroidCartFragment
             TextView price = (TextView) rootView.findViewById(R.id.details_price);
             price.setText(product.price);
 
+            TextView addToWishList = (TextView) rootView.findViewById(R.id.add_to_wish_list);
+            addToWishList.setOnClickListener(this);
+            addToWishList.setClickable(true);
+
+            TextView addToCart = (TextView) rootView.findViewById(R.id.add_cart);
+            addToCart.setOnClickListener(this);
+            addToCart.setClickable(true);
+
             setActionBarTitle(product.name);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        String evt = "";
+
+        switch(v.getId()) {
+            case R.id.add_cart : {
+                BasketCache.instance().get().addProduct(product);
+                evt = "Basket";
+                break;
+            }
+
+            case R.id.add_to_wish_list : {
+                WishListCache.instance().get().addProduct(product);
+                evt = "Wish List";
+                break;
+            }
+        }
+
+        Toast.makeText(v.getContext(), "Added to " + evt, Toast.LENGTH_SHORT).show();
     }
 
     /**

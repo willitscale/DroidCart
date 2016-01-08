@@ -1,7 +1,5 @@
 package uk.co.n3tw0rk.droidcart.caches;
 
-import android.util.SparseArray;
-
 /**
  * Cache Abstraction Layer
  *
@@ -11,31 +9,27 @@ import android.util.SparseArray;
 public abstract class Cache <T> {
 
     /** */
-    protected SparseArray<T> data = new SparseArray<T>();
+    protected T data;
+
+    protected abstract void init();
 
     /**
      *
-     * @param id
      * @return
      */
-    public synchronized T get(int id) {
-        return data.get(id);
+    public synchronized T get() {
+        if (null == data) {
+            init();
+        }
+
+        return data;
     }
 
     /**
      *
-     * @param id
      * @param cache
      */
-    public synchronized void set(int id,T cache) {
-        data.put(id,cache);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public synchronized int size() {
-        return data.size();
+    public synchronized void set(T cache) {
+        data = cache;
     }
 }

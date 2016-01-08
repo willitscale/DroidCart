@@ -8,7 +8,7 @@ import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
  * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
  * @version 0.0.1
  */
-public class ProductCache extends Cache<Product> {
+public class ProductCache extends MultiCache<Product> {
 
     /** */
     private static final ProductCache instance = new ProductCache();

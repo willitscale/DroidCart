@@ -1,28 +1,28 @@
 package uk.co.n3tw0rk.droidcart.caches;
 
-import uk.co.n3tw0rk.droidcart.definitions.product.Shop;
+import uk.co.n3tw0rk.droidcart.definitions.shopping.WishList;
 
 /**
- * Shop Cache Class
+ * Wish List Cache Class
  *
  * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
  * @version 0.0.1
  */
-public class ShopCache extends Cache<Shop> {
+public class WishListCache extends Cache<WishList> {
 
     /** */
-    private static final ShopCache instance = new ShopCache();
+    private static final WishListCache instance = new WishListCache();
 
     /**
      *
      */
-    private ShopCache() {}
+    private WishListCache() {}
 
     /**
      *
      * @return
      */
-    public static ShopCache instance() {
+    public static WishListCache instance() {
         return instance;
     }
 
@@ -31,7 +31,7 @@ public class ShopCache extends Cache<Shop> {
      */
     protected void init() {
         if (null == data) {
-            data = new Shop();
+            data = new WishList();
         }
     }
 }
