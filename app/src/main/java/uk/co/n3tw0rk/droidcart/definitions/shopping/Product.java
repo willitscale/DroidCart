@@ -19,4 +19,21 @@ public class Product extends Definition {
 
     public List<ProductImage> images;
     public Map<String,Map<String,String>> dimensions;
+
+    /**
+     *
+     * @return
+     */
+    public String getImage() {
+
+        if (null != image) {
+            return image;
+        }
+
+        if (null != images && 0 < images.size()) {
+            return images.get(0).url;
+        }
+
+        return null;
+    }
 }

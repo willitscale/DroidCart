@@ -249,7 +249,7 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
             holder.mSaleView.setText(holder.product.discount);
             holder.mSaleView.setPaintFlags(holder.mSaleView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            Picasso.with(getContext()).load(holder.product.image).resize(0,512).into(holder.mImageView);
+            Picasso.with(getContext()).load(holder.product.getImage()).resize(0,512).into(holder.mImageView);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

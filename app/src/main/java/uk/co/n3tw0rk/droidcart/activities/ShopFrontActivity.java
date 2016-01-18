@@ -1,5 +1,6 @@
 package uk.co.n3tw0rk.droidcart.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -13,7 +14,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.n3tw0rk.droidcart.R;
+import uk.co.n3tw0rk.droidcart.caches.BasketCache;
 import uk.co.n3tw0rk.droidcart.caches.ShopCache;
 import uk.co.n3tw0rk.droidcart.config.DroidCartConfig;
 import uk.co.n3tw0rk.droidcart.definitions.product.Category;
@@ -57,6 +61,10 @@ public class ShopFrontActivity extends DroidCartActivity
     /** */
     protected NavigationView navigationView;
 
+    /** */
+    protected TextView basketCounter;
+
+
     /**
      *
      */
@@ -72,7 +80,7 @@ public class ShopFrontActivity extends DroidCartActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a__main);
+        setContentView(R.layout.a__shop_front);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -103,23 +111,49 @@ public class ShopFrontActivity extends DroidCartActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateBasketCounter();
+    }
+
     /**
      *
      * @param menu
      * @return
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_cart);
+
         MenuItemCompat.setActionView(item, R.layout.b__cart_badge);
         RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
+        basketCounter = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
 
-        TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
-        tv.setText("3");
+        // Done this way for API version 10
+        MenuItemCompat.getActionView(item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu.performIdentifierAction(v.getId(),0);
+            }
+        });
+
+        updateBasketCounter();
 
         return true;
+    }
+
+    /**
+     *
+     */
+    public void updateBasketCounter() {
+        if (null != basketCounter) {
+            basketCounter.setText("" + BasketCache.instance().get().size());
+        }
     }
 
     /**
@@ -144,8 +178,20 @@ public class ShopFrontActivity extends DroidCartActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_cart) {
-            return true;
+        Intent intent = null;
+
+        switch (id) {
+            case R.id.action_search : {
+                break;
+            }
+            case R.id.action_cart : {
+                intent = new Intent(this,BasketActivity.class);
+                break;
+            }
+        }
+
+        if (null != intent) {
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -156,19 +202,13 @@ public class ShopFrontActivity extends DroidCartActivity
      * @param item
      * @return
      */
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 

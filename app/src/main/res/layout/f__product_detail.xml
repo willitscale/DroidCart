@@ -69,7 +69,6 @@
 
     </android.support.v7.widget.CardView>
 
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -143,6 +142,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/product_desc_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -150,10 +150,16 @@
                 android:textColor="@color/primaryBreak"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:text="Description +"
+                android:text="@string/description_expand"
                 android:lines="1"
-                android:ellipsize="end"
-                android:layout_toLeftOf="@id/details_price" />
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/product_desc_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -178,6 +184,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/product_returns_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -185,10 +192,16 @@
                 android:textColor="@color/primaryBreak"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:text="Returns +"
+                android:text="@string/returns_expand"
                 android:lines="1"
-                android:ellipsize="end"
-                android:layout_toLeftOf="@id/details_price" />
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/product_returns_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

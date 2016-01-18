@@ -53,4 +53,42 @@ abstract public class ProductList implements Iterable<Product> {
         return products.values().iterator();
     }
 
+    /**
+     *
+     * @return
+     */
+    public int size() {
+        return products.size();
+    }
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    public Product get(Integer key) {
+        return products.get(key);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Product getIndex(int id) {
+
+        Iterator<Product> products = iterator();
+
+        int idx = 0;
+
+        while(products.hasNext()) {
+            Product product = products.next();
+            if (id == idx++) {
+                return product;
+            }
+        }
+
+        return null;
+    }
+
 }

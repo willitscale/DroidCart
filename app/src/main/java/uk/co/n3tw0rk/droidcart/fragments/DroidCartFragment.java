@@ -2,6 +2,7 @@ package uk.co.n3tw0rk.droidcart.fragments;
 
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import retrofit.Retrofit;
 import uk.co.n3tw0rk.droidcart.activities.DroidCartActivity;
@@ -53,5 +54,29 @@ public abstract class DroidCartFragment extends Fragment {
             return;
         }
         setActionBarTitle(resources.getString(resource));
+    }
+
+    /**
+     *
+     * @param v
+     */
+    public void expand(final View v) {
+        getDroidCartActivity().expand(v);
+    }
+
+    /**
+     *
+     * @param v
+     */
+    public void collapse(final View v) {
+        getDroidCartActivity().collapse(v);
+    }
+
+    public void toggle(final View v) {
+        if (View.GONE == v.getVisibility()) {
+            expand(v);
+        } else {
+            collapse(v);
+        }
     }
 }

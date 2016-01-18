@@ -1,16 +1,17 @@
 package uk.co.n3tw0rk.droidcart.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -106,45 +107,110 @@ public class ProductDetailFragment extends DroidCartFragment
             ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.view_pager_images);
             viewPager.setAdapter(new ImageAdapter(getChildFragmentManager()));
 
+            // Product Name
             TextView name = (TextView) rootView.findViewById(R.id.details_name);
             name.setText(product.name);
 
+            // Product Price
             TextView price = (TextView) rootView.findViewById(R.id.details_price);
             price.setText(product.price);
 
+            // Add to wish list button
             TextView addToWishList = (TextView) rootView.findViewById(R.id.add_to_wish_list);
             addToWishList.setOnClickListener(this);
             addToWishList.setClickable(true);
 
+            // Add to cart button
             TextView addToCart = (TextView) rootView.findViewById(R.id.add_cart);
             addToCart.setOnClickListener(this);
             addToCart.setClickable(true);
+
+            // Product Description Toggle
+            TextView descriptionToggle = (TextView) rootView.findViewById(R.id.product_desc_toggle);
+            descriptionToggle.setOnClickListener(this);
+            descriptionToggle.setClickable(true);
+
+            // Product Description
+            TextView description = (TextView) rootView.findViewById(R.id.product_desc_content);
+            description.setText(product.description);
+
+            // Product Returns Toggle
+            TextView returnsToggle = (TextView) rootView.findViewById(R.id.product_returns_toggle);
+            returnsToggle.setOnClickListener(this);
+            returnsToggle.setClickable(true);
 
             setActionBarTitle(product.name);
         }
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
 
-        String evt = "";
+        int evt = 0;
 
         switch(v.getId()) {
             case R.id.add_cart : {
                 BasketCache.instance().get().addProduct(product);
-                evt = "Basket";
+                evt = R.string.added_basket;
                 break;
             }
 
             case R.id.add_to_wish_list : {
                 WishListCache.instance().get().addProduct(product);
-                evt = "Wish List";
+                evt = R.string.added_wishlist;
+                break;
+            }
+
+            case R.id.product_desc_toggle : {
+
+                final View content = getView().findViewById(R.id.product_desc_content);
+
+                int text = R.string.description_expand;
+
+                if (View.GONE == content.getVisibility()) {
+                    text = R.string.description_collapse;
+                }
+
+                ((TextView)v).setText(text);
+
+                toggle(content);
+                break;
+            }
+
+            case R.id.product_returns_toggle : {
+
+                final View content = getView().findViewById(R.id.product_returns_content);
+
+                int text = R.string.returns_expand;
+
+                if (View.GONE == content.getVisibility()) {
+                    text = R.string.returns_collapse;
+                }
+
+                ((TextView)v).setText(text);
+
+                toggle(content);
                 break;
             }
         }
 
-        Toast.makeText(v.getContext(), "Added to " + evt, Toast.LENGTH_SHORT).show();
+        if (0 < evt) {
+            final Snackbar snackbar = Snackbar.make(v, evt, Snackbar.LENGTH_LONG);
+
+            snackbar.setAction(R.string.undo, new View.OnClickListener() {
+                @Override
+                public void onClick(View inner) {
+                    snackbar.dismiss();
+                    Snackbar.make(v,"Item Removed",Snackbar.LENGTH_SHORT).show();
+                }
+            });
+
+            snackbar.setActionTextColor(ContextCompat.getColor(getActivity(),R.color.colorAccent));
+            snackbar.show();
+        }
     }
+
+
 
     /**
      *
@@ -165,7 +231,7 @@ public class ProductDetailFragment extends DroidCartFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.f__item_detail, container, false);
+        View rootView = inflater.inflate(R.layout.f__product_detail, container, false);
         return rootView;
     }
 
