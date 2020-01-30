@@ -2,43 +2,28 @@ package uk.co.n3tw0rk.droidcart.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import uk.co.n3tw0rk.droidcart.R;
 import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
 import uk.co.n3tw0rk.droidcart.fragments.ProductDetailFragment;
 
-/**
- * Product Activity Class
- *
- * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
- * @version 0.0.1
- */
 public class ProductActivity extends DroidCartActivity {
 
-    /** */
     protected Product product;
 
-    /** */
     protected int produtId;
 
-    /** */
     protected ProductDetailFragment fragment;
 
-    /**
-     *
-     */
     public ProductActivity() {
         super();
     }
 
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +52,6 @@ public class ProductActivity extends DroidCartActivity {
         }
     }
 
-    /**
-     *
-     * @param item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

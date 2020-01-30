@@ -1,6 +1,6 @@
 package uk.co.n3tw0rk.droidcart.fragments;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by M00SEMARKTWO on 05/12/2015.

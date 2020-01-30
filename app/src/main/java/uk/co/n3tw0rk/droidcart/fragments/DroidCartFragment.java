@@ -1,8 +1,9 @@
 package uk.co.n3tw0rk.droidcart.fragments;
 
 import android.content.res.Resources;
-import android.support.v4.app.Fragment;
 import android.view.View;
+
+import androidx.fragment.app.Fragment;
 
 import retrofit.Retrofit;
 import uk.co.n3tw0rk.droidcart.activities.DroidCartActivity;

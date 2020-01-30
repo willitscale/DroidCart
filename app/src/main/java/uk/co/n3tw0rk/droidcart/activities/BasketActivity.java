@@ -3,16 +3,17 @@ package uk.co.n3tw0rk.droidcart.activities;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -37,10 +38,6 @@ public class BasketActivity extends DroidCartActivity {
         return this;
     }
 
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,18 +68,9 @@ public class BasketActivity extends DroidCartActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    /**
-     *
-     */
     public class GridAdapter
             extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
-        /**
-         *
-         * @param parent
-         * @param viewType
-         * @return
-         */
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -90,11 +78,6 @@ public class BasketActivity extends DroidCartActivity {
             return new ViewHolder(view);
         }
 
-        /**
-         *
-         * @param holder
-         * @param position
-         */
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
 
@@ -117,10 +100,6 @@ public class BasketActivity extends DroidCartActivity {
             Picasso.with(getActivity()).load(holder.product.getImage()).resize(0,512).into(holder.mImageView);
         }
 
-        /**
-         *
-         * @return
-         */
         @Override
         public int getItemCount() {
             Basket basket = BasketCache.instance().get();
@@ -131,24 +110,17 @@ public class BasketActivity extends DroidCartActivity {
             return basket.products.size();
         }
 
-        /**
-         *
-         */
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            public final View mView;
-            public final TextView mNameView;
-            public final TextView mPriceView;
-            public final TextView mSaleView;
-            public final ImageView mImageView;
+            final View mView;
+            final TextView mNameView;
+            final TextView mPriceView;
+            final TextView mSaleView;
+            final ImageView mImageView;
 
             public Product product;
 
-            /**
-             *
-             * @param view
-             */
-            public ViewHolder(View view) {
+            ViewHolder(View view) {
                 super(view);
                 mView = view;
                 mNameView = (TextView) view.findViewById(R.id.name);
@@ -157,10 +129,6 @@ public class BasketActivity extends DroidCartActivity {
                 mImageView = (ImageView) view.findViewById(R.id.image_view);
             }
 
-            /**
-             *
-             * @return
-             */
             @Override
             public String toString() {
                 return super.toString() + " '" + mNameView.getText() + "'";

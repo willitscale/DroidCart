@@ -1,18 +1,19 @@
 package uk.co.n3tw0rk.droidcart.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import retrofit.Call;
@@ -26,41 +27,21 @@ import uk.co.n3tw0rk.droidcart.caches.ProductCache;
 import uk.co.n3tw0rk.droidcart.caches.WishListCache;
 import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
 
-/**
- * Product Detail Fragment Class
- *
- * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
- * @version 0.0.1
- */
 public class ProductDetailFragment extends DroidCartFragment
         implements Callback<Product>, View.OnClickListener {
 
-    /** */
     public static final String PRODUCT_ID = "__PRODUCT_ID";
-
-    /** */
     protected Product product;
-
-    /** */
     protected int productId;
-
-    /** */
     protected String[] attributes = {
             "dimensions",
             "images"
     };
 
-    /**
-     *
-     */
     public ProductDetailFragment() {
         super();
     }
 
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

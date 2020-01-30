@@ -1,7 +1,7 @@
 package uk.co.n3tw0rk.droidcart.listeners;
 
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * Created by M00SEMARKTWO on 31/12/2015.

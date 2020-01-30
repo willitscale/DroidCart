@@ -1,12 +1,13 @@
 package uk.co.n3tw0rk.droidcart.activities;
 
 import android.content.res.Resources;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit.Retrofit;
 import uk.co.n3tw0rk.droidcart.application.DroidCart;
