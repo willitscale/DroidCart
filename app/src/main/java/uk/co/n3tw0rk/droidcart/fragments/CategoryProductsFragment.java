@@ -31,73 +31,36 @@ import uk.co.n3tw0rk.droidcart.definitions.product.Category;
 import uk.co.n3tw0rk.droidcart.definitions.shopping.Product;
 import uk.co.n3tw0rk.droidcart.listeners.StaggeredLoaderListener;
 
-/**
- * Category Products Fragment Class
- *
- * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
- * @version 0.0.1
- */
 public class CategoryProductsFragment extends DroidCartFragment implements Callback<Category> {
 
-    /** */
-    protected final static String CATEGORY_ID = "__CATEGORY_ID";
-
-    /** */
-    protected boolean mTwoPane;
-
-    /** */
-    protected int categoryId;
-
-    /** */
-    protected StaggeredLoaderListener listener;
-
-    /** */
-    protected int limit = 5;
-
-    /** */
-    protected int offset = 0;
-
-    /** */
-    protected String[] attributes = {
+    private final static String CATEGORY_ID = "__CATEGORY_ID";
+    private boolean mTwoPane;
+    private int categoryId;
+    private StaggeredLoaderListener listener;
+    private int limit = 5;
+    private int offset = 0;
+    private String[] attributes = {
             "price",
             "image"
     };
+    private int columns = 2;
+    private int staggeredReload = 6;
+    private GridAdapter adapter = new GridAdapter();
 
-    /** */
-    protected int columns = 2;
-
-    /** */
-    protected int staggeredReload = 6;
-
-    /** */
-    protected GridAdapter adapter = new GridAdapter();
-
-    /**
-     *
-     * @param categoryId
-     * @return
-     */
     public static Fragment instance(int categoryId) {
         Fragment fragment = new CategoryProductsFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(CATEGORY_ID,categoryId);
+        bundle.putInt(CATEGORY_ID, categoryId);
 
         fragment.setArguments(bundle);
 
         return fragment;
     }
 
-    /**
-     *
-     */
     public CategoryProductsFragment() {
     }
 
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,29 +70,21 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
         }
     }
 
-    /**
-     *
-     */
     public void getCategory() {
         CategoryAPI service = getRetrofit()
                 .create(CategoryAPI.class);
-        Call<Category> call = service.getCategory(categoryId,offset,limit,attributes);
-        offset+=limit;
+        Call<Category> call = service.getCategory(categoryId, offset, limit, attributes);
+        offset += limit;
         call.enqueue(this);
     }
 
-    /**
-     *
-     * @param response
-     * @param retrofit
-     */
     @Override
     public void onResponse(Response<Category> response, Retrofit retrofit) {
         Category category = CategoryCache.instance().get(categoryId);
 
         if (null == category) {
             category = response.body();
-            CategoryCache.instance().set(categoryId,category);
+            CategoryCache.instance().set(categoryId, category);
             listener.resetTrigger(category.products.size());
         } else {
             Category newCategory = response.body();
@@ -144,38 +99,22 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
         adapter.notifyDataSetChanged();
     }
 
-    /**
-     *
-     * @param t
-     */
     @Override
     public void onFailure(Throwable t) {
         // TODO: Have a dance?
     }
 
-    /**
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.f__category, container, false);
     }
 
-    /**
-     *
-     * @param view
-     * @param savedInstanceState
-     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.item_list);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_list);
         assert recyclerView != null;
 
         recyclerView.setHasFixedSize(true);
@@ -200,26 +139,13 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
         getCategory();
     }
 
-    /**
-     *
-     * @param recyclerView
-     */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(adapter);
     }
 
-    /**
-     *
-     */
     public class GridAdapter
             extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
-        /**
-         *
-         * @param parent
-         * @param viewType
-         * @return
-         */
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -227,11 +153,6 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
             return new ViewHolder(view);
         }
 
-        /**
-         *
-         * @param holder
-         * @param position
-         */
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Category category = CategoryCache.instance().get(categoryId);
@@ -250,7 +171,7 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
             holder.mSaleView.setText(holder.product.discount);
             holder.mSaleView.setPaintFlags(holder.mSaleView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            Picasso.with(getContext()).load(holder.product.getImage()).resize(0,512).into(holder.mImageView);
+            Picasso.with(getContext()).load(holder.product.getImage()).resize(0, 512).into(holder.mImageView);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -274,10 +195,6 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
             });
         }
 
-        /**
-         *
-         * @return
-         */
         @Override
         public int getItemCount() {
             Category category = CategoryCache.instance().get(categoryId);
@@ -288,9 +205,6 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
             return category.products.size();
         }
 
-        /**
-         *
-         */
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             public final View mView;
@@ -301,23 +215,15 @@ public class CategoryProductsFragment extends DroidCartFragment implements Callb
 
             public Product product;
 
-            /**
-             *
-             * @param view
-             */
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mNameView = (TextView) view.findViewById(R.id.name);
-                mPriceView = (TextView) view.findViewById(R.id.price);
-                mSaleView = (TextView) view.findViewById(R.id.sale);
-                mImageView = (ImageView) view.findViewById(R.id.image_view);
+                mNameView = view.findViewById(R.id.name);
+                mPriceView = view.findViewById(R.id.price);
+                mSaleView = view.findViewById(R.id.sale);
+                mImageView = view.findViewById(R.id.image_view);
             }
 
-            /**
-             *
-             * @return
-             */
             @Override
             public String toString() {
                 return super.toString() + " '" + mNameView.getText() + "'";

@@ -2,9 +2,6 @@ package uk.co.n3tw0rk.droidcart.fragments;
 
 import androidx.fragment.app.Fragment;
 
-/**
- * Created by M00SEMARKTWO on 05/12/2015.
- */
 public class CategoryFragment extends Fragment
 {
     private boolean mTwoPane;

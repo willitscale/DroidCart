@@ -26,7 +26,7 @@
             android:background="@color/colorPrimary"
             android:padding="10dp">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_images"
             android:layout_width="match_parent"
             android:layout_height="300dp" />

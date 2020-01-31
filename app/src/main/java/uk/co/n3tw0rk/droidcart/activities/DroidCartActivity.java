@@ -12,25 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import retrofit.Retrofit;
 import uk.co.n3tw0rk.droidcart.application.DroidCart;
 
-/**
- * Droid Cart Activity Abstraction
- *
- * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
- * @version 0.0.1
- */
 abstract public class DroidCartActivity extends AppCompatActivity {
 
-    /**
-     * @return
-     */
     public Retrofit getRetrofit() {
         return ((DroidCart) getApplication())
                 .getRetrofit();
     }
 
-    /**
-     * @param title
-     */
     public void setActionBarTitle(String title) {
         ActionBar actionBar = getSupportActionBar();
         if (null == actionBar) {
@@ -39,9 +27,6 @@ abstract public class DroidCartActivity extends AppCompatActivity {
         actionBar.setTitle(title);
     }
 
-    /**
-     * @param resource
-     */
     public void setActionBarTitle(int resource) {
         Resources resources = getResources();
         if (null == resources) {
@@ -52,9 +37,6 @@ abstract public class DroidCartActivity extends AppCompatActivity {
 
     /**
      * Source :  http://stackoverflow.com/questions/4946295/android-expand-collapse-animation
-     *
-     * @param
-     * @return void
      */
     public void expand(final View v) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -85,9 +67,6 @@ abstract public class DroidCartActivity extends AppCompatActivity {
 
     /**
      * Source :  http://stackoverflow.com/questions/4946295/android-expand-collapse-animation
-     *
-     * @param
-     * @return void
      */
     public void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();

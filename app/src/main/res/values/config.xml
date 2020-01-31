@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="droidcart_shop_id">1</integer>
-    <string name="droidcart_shop_base">http://droidcart.n3tw0rk.co.uk/</string>
+    <string name="droidcart_shop_base">http://10.0.2.2:8080</string>
     <string name="droidcart_version">DroidCart 0.0.1</string>
 </resources>

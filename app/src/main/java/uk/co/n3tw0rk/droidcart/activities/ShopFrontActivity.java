@@ -33,52 +33,23 @@ import uk.co.n3tw0rk.droidcart.definitions.product.Category;
 import uk.co.n3tw0rk.droidcart.definitions.product.Shop;
 import uk.co.n3tw0rk.droidcart.fragments.CategoryProductsFragment;
 
-/**
- * Shop Front Activity Class
- *
- * @author <a href="mailto:james@n3tw0rk.co.uk">James Lockhart</a>
- * @version 0.0.1
- */
 public class ShopFrontActivity extends DroidCartActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /** */
     protected boolean multiPanel;
-
-    /** */
     protected final int shopId;
-
-    /** */
     protected Toolbar toolbar;
-
-    /** */
     protected TabLayout tabLayout;
-
-    /** */
     protected ViewPager viewPager;
-
-    /** */
     protected DrawerLayout drawer;
-
-    /** */
     protected NavigationView navigationView;
-
-    /** */
     protected TextView basketCounter;
 
-
-    /**
-     *
-     */
     public ShopFrontActivity() {
         super();
         shopId = DroidCartConfig.getInt(DroidCartConfig.SHOP_ID);
     }
 
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
